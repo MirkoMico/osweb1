@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Richieste {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +37,11 @@ public class Richieste {
    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataModifica;
 
-    public Richieste(long idCommessa, String oggetto, Stato stato, LocalDateTime dataCreazione,
+    public Richieste(long id ,long idCommessa, String oggetto, Stato stato, LocalDateTime dataCreazione,
                      StatoApprovazione statoApprovazione, String note,
                      String campo1, String campo2, String campo3, String campo4,String utenteInserimento,
                      LocalDateTime dataInserimento, String utenteModifica, LocalDateTime dataModifica) {
+        this.id=id;
         this.idCommessa = idCommessa;
         this.oggetto = oggetto;
         this.stato = stato;

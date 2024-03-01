@@ -41,13 +41,14 @@ public class RichiesteServiceImpl implements RichiesteService {
         StatoApprovazione statoApprovazione=optionalStatoApprovazione.get();
 
 
-        Richieste newRichesta=new Richieste(richiesteDto.getIdCommessa(),
+        Richieste newRichesta=new Richieste(richiesteDto.getId(),richiesteDto.getIdCommessa(),
                 richiesteDto.getOggetto(),stato,richiesteDto.getDataCreazione(),
                 statoApprovazione,richiesteDto.getNote(),
                 richiesteDto.getCampo1(),richiesteDto.getCampo2(),richiesteDto.getCampo3(),richiesteDto.getCampo4(),
                 richiesteDto.getUtenteInserimento(), richiesteDto.getDataInserimento(),
                 richiesteDto.getUtenteModifica(),richiesteDto.getDataModifica());
         richiesteRepository.save(newRichesta);
+
 
         return richiesteRepository.save(newRichesta);// ;
     }/**richiesta.setStatoApprovazione(
@@ -70,24 +71,41 @@ public class RichiesteServiceImpl implements RichiesteService {
     }
 
     @Override
-    public Richieste updateRichieste(Richieste richieste, long id) {
+    public Richieste updateRichieste(RichiesteDto richiesteDto, long id) {
+
         Richieste existingRichieste = richiesteRepository.findById(id)
                 .orElseThrow( ()-> new ResourceNotFoundException("Richieste","Id",id)) ;
-        	existingRichieste.setId(richieste.getId());
-   	        existingRichieste.setIdCommessa(richieste.getIdCommessa());
-		    existingRichieste.setOggetto(richieste.getOggetto());
-            //existingRichieste.setStato(richieste.getStato());
-            existingRichieste.setDataCreazione(richieste.getDataCreazione());
-            existingRichieste.setStatoApprovazione(richieste.getStatoApprovazione());
-            existingRichieste.setNote(richieste.getNote());
-        existingRichieste.setCampo1(richieste.getCampo1());
-        existingRichieste.setCampo1(richieste.getCampo2());
-        existingRichieste.setCampo1(richieste.getCampo3());
-        existingRichieste.setCampo1(richieste.getCampo4());
-      //  existingRichieste.setUtenteInserimento(richieste.getUtenteInserimento);
-        existingRichieste.setDataInserimento(richieste.getDataInserimento());
-     //   existingRichieste.setRichiesteModifica(richieste.getRichiesteModifica);
-        existingRichieste.setDataModifica(richieste.getDataModifica());
+
+        Optional<Stato> optionalStato = statoRepository.findById(richiesteDto.getStatoId());
+        if (optionalStato.isEmpty()) {
+            throw new ResourceNotFoundException("Stato", "Id", richiesteDto.getStatoId());
+        }
+        Stato stato = optionalStato.get();
+
+        Optional<StatoApprovazione> optionalStatoApprovazione = statoApprovazioneRepository.findById
+                (richiesteDto.getStatoApprovazioneId());
+        if (optionalStatoApprovazione.isEmpty()) {
+            throw new ResourceNotFoundException("StatoApprovazione", "Id", richiesteDto.getStatoApprovazioneId());
+        }
+        StatoApprovazione statoApprovazione = optionalStatoApprovazione.get();
+
+
+        	existingRichieste.setId(richiesteDto.getId());
+   	        existingRichieste.setIdCommessa(richiesteDto.getIdCommessa());
+		    existingRichieste.setOggetto(richiesteDto.getOggetto());
+
+            existingRichieste.setStato(stato);
+            existingRichieste.setDataCreazione(richiesteDto.getDataCreazione());
+           existingRichieste.setStatoApprovazione(statoApprovazione);
+            existingRichieste.setNote(richiesteDto.getNote());
+        existingRichieste.setCampo1(richiesteDto.getCampo1());
+        existingRichieste.setCampo1(richiesteDto.getCampo2());
+        existingRichieste.setCampo1(richiesteDto.getCampo3());
+        existingRichieste.setCampo1(richiesteDto.getCampo4());
+        existingRichieste.setUtenteInserimento(richiesteDto.getUtenteInserimento());
+        existingRichieste.setDataInserimento(richiesteDto.getDataInserimento());
+        existingRichieste.setUtenteModifica(richiesteDto.getUtenteModifica());
+        existingRichieste.setDataModifica(richiesteDto.getDataModifica());
         richiesteRepository.save(existingRichieste);
         return existingRichieste;
     }

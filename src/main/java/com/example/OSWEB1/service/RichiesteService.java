@@ -10,7 +10,7 @@ public interface RichiesteService {
     Richieste saveRichieste(RichiesteDto richiesteDto);
     List<Richieste> getAllRichieste();
     Richieste getRichiesteById(long id);
-    Richieste updateRichieste(Richieste richieste, long id);
+    Richieste updateRichieste(RichiesteDto richiesteDto, long id);
     void deleteRichieste(long id);
 
 }

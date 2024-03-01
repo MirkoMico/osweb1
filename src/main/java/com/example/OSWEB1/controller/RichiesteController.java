@@ -32,8 +32,15 @@ public class RichiesteController {
         return new ResponseEntity<Richieste>(richiesteService.saveRichieste(richiesteDto), HttpStatus.CREATED);
     }
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
     public List<Richieste> getAll(){
         return richiesteService.getAllRichieste();
+    }
 
+    @PutMapping("{id}")
+    @CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
+    public ResponseEntity<Richieste> updateRichieste(@PathVariable("id") long id,
+                                               @RequestBody RichiesteDto richiesteDto){
+        return new ResponseEntity<Richieste>(richiesteService.updateRichieste(richiesteDto, id), HttpStatus.OK);
     }
 }

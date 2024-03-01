@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RichiesteDto {
 
+    private long id;
     private long idCommessa;
     private String oggetto;
     int statoId;
