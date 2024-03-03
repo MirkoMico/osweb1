@@ -27,9 +27,9 @@ public class RichiesteController {
         this.richiesteService = richiesteService;
     }
     @PostMapping
-    public ResponseEntity<Richieste> saveRichieste(@RequestBody RichiesteDto richiesteDto){
+    public ResponseEntity<Richieste> saveRichieste(@RequestBody Richieste richieste){
 
-        return new ResponseEntity<Richieste>(richiesteService.saveRichieste(richiesteDto), HttpStatus.CREATED);
+        return new ResponseEntity<Richieste>(richiesteService.saveRichieste(richieste), HttpStatus.CREATED);
     }
     @GetMapping
     @CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
@@ -37,10 +37,10 @@ public class RichiesteController {
         return richiesteService.getAllRichieste();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
     public ResponseEntity<Richieste> updateRichieste(@PathVariable("id") long id,
-                                               @RequestBody RichiesteDto richiesteDto){
-        return new ResponseEntity<Richieste>(richiesteService.updateRichieste(richiesteDto, id), HttpStatus.OK);
+                                               @RequestBody Richieste richieste){
+        return new ResponseEntity<Richieste>(richiesteService.updateRichieste(richieste, id), HttpStatus.OK);
     }
 }

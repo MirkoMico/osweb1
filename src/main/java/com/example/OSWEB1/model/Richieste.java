@@ -20,10 +20,12 @@ public class Richieste {
     private long idCommessa;
     private String oggetto;
     @ManyToOne
+    @JoinColumn(name="stato_id_stato",referencedColumnName = "idStato")
      private Stato stato;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataCreazione;
     @ManyToOne
+    @JoinColumn(name="stato_approvazione_id_stato_app",referencedColumnName = "idStatoApp")
     private StatoApprovazione statoApprovazione;
     private String note;
     private String campo1;
@@ -37,7 +39,7 @@ public class Richieste {
    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataModifica;
 
-    public Richieste(long id ,long idCommessa, String oggetto, Stato stato, LocalDateTime dataCreazione,
+    /*public Richieste(long id ,long idCommessa, String oggetto, Stato stato, LocalDateTime dataCreazione,
                      StatoApprovazione statoApprovazione, String note,
                      String campo1, String campo2, String campo3, String campo4,String utenteInserimento,
                      LocalDateTime dataInserimento, String utenteModifica, LocalDateTime dataModifica) {
@@ -57,4 +59,5 @@ public class Richieste {
         this.utenteModifica= utenteModifica;
         this.dataModifica = dataModifica;
     }
+     */
 }
